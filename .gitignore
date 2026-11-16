@@ -16,3 +16,58 @@ bin-release/
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.
+-- Unnamed-style UI only (기능 없음)
+local ok, err = pcall(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/mstudio45/LinoriaLib/main/Library.lua"))()
+end)
+if not ok or not Library then
+    warn("Linoria 실패:", err)
+    return
+end
+
+local Window = Library:CreateWindow({
+    Title = "Unnamed Style",
+    Center = true,
+    AutoShow = true,
+    TabPadding = 8,
+})
+
+local Tabs = {
+    Combat = Window:AddTab("Combat"),
+    Visuals = Window:AddTab("Visuals"),
+    Movement = Window:AddTab("Movement"),
+    Misc = Window:AddTab("Misc"),
+}
+
+-- Combat
+Tabs.Combat:AddToggle("SilentAim", { Text = "Silent Aim", Default = false })
+Tabs.Combat:AddToggle("Aimbot", { Text = "Aimbot", Default = false })
+Tabs.Combat:AddSlider("FOV", { Text = "FOV", Default = 140, Min = 60, Max = 350, Rounding = 0 })
+Tabs.Combat:AddSlider("Prediction", { Text = "Prediction", Default = 0.14, Min = 0, Max = 0.3, Rounding = 3 })
+Tabs.Combat:AddToggle("Ragebot", { Text = "Ragebot", Default = false })
+Tabs.Combat:AddToggle("Triggerbot", { Text = "Triggerbot", Default = false })
+
+-- Visuals
+Tabs.Visuals:AddToggle("ESP", { Text = "ESP", Default = false })
+Tabs.Visuals:AddToggle("Box", { Text = "Box", Default = false })
+Tabs.Visuals:AddToggle("Name", { Text = "Name + Distance", Default = false })
+Tabs.Visuals:AddToggle("Skeleton", { Text = "Skeleton", Default = false })
+Tabs.Visuals:AddToggle("Chams", { Text = "Chams", Default = false })
+
+-- Movement
+Tabs.Movement:AddToggle("Fly", { Text = "Fly", Default = false })
+Tabs.Movement:AddSlider("FlySpeed", { Text = "Fly Speed", Default = 90, Min = 40, Max = 180, Rounding = 0 })
+Tabs.Movement:AddToggle("Speed", { Text = "Speed", Default = false })
+Tabs.Movement:AddSlider("WalkSpeed", { Text = "Walk Speed", Default = 28, Min = 16, Max = 50, Rounding = 0 })
+
+-- Misc
+Tabs.Misc:AddToggle("Godmode", { Text = "Godmode", Default = false })
+Tabs.Misc:AddButton({
+    Text = "Unload",
+    Func = function()
+        Library:Unload()
+    end,
+})
+
+Library:Notify("Unnamed Style", "UI only · 기능 없음", 5)
+print("[UI only] Loaded")
